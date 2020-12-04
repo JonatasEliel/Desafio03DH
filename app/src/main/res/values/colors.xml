@@ -11,4 +11,6 @@
     <!-- APP COLORS -->
     <color name="app_background">#00162C</color>
     <color name="red">#EA2427</color>
+    <color name="red_secondary">#EA2432</color>
+    <color name="text_secondary">#858C94</color>
 </resources>
