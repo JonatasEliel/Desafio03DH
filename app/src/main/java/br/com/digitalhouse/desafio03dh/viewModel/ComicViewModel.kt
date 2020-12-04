@@ -14,27 +14,24 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(comicResponse: ComicService, application: Application) :
-    AndroidViewModel(application) {
-
-    val comicList = MutableLiveData<ComicResponse>()
+class ComicViewModel(comicService: ComicService, application: Application) : AndroidViewModel(application) {
+    val comic = MutableLiveData<ComicResponse>()
     private val context = getApplication<Application>().applicationContext
-
-    fun getComics(offset: Int = 0) {
+    fun getComic(comicId: Int) {
         viewModelScope.launch(Dispatchers.Main) {
             try {
-                val response = RetrofitBuilder.getService()!!.getComics(offset)
+                val response = RetrofitBuilder.getService()!!.getComic(comicId)
                 val results = response.get("data")
-                val comics = Gson().fromJson(
+                val comic = Gson().fromJson(
                     results,
                     object : TypeToken<ComicResponse>() {}.type
                 ) as ComicResponse
-                comicList.value = comics
+                comic.value = comic
             } catch (e: Exception) {
-                Log.w("MainViewModel", e.toString())
-                Toast.makeText(context, "Network error: ${e.message}", Toast.LENGTH_LONG).show()
+                Log.e(this.javaClass.name, e.toString())
+                Toast.makeText(context, "Failed to connect", Toast.LENGTH_LONG).show()
             }
-
         }
+
     }
 }

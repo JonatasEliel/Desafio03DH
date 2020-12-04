@@ -13,10 +13,10 @@ import retrofit2.http.Query
 
 interface ComicService {
     @GET("comics")
-    suspend fun getHQs(@Query("offset") offset: Int): JsonObject
+    suspend fun getComics(@Query("offset") offset: Int): JsonObject
 
     @GET("comics/{id}")
-    suspend fun getHQ(@Path("id") comicId: Int): JsonObject
+    suspend fun getComic(@Path("id") comicId: Int): JsonObject
 }
 
 class RetrofitBuilder() {
